@@ -8,14 +8,16 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+@Service("eTagService")
 public class StubETagService implements ETagService {
 
 	private Map<String, String> db = new ConcurrentHashMap<String, String>();
-	
+
 	private ObjectMapper mapper = new ObjectMapper();
-	
+
 	public String generate(String url, Object entity) {
 		String tag = createTag(entity);
 		db.put(url, tag);

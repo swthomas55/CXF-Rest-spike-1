@@ -1,18 +1,14 @@
 I'm trying to learn about creating RESTful services using Spring CXF.
 
-Right now, I'm getting an error trying to run it with tomcat (mvn tomcat:run), as shown:
-
-INFO: Marking servlet CXFServlet as unavailable
-Mar 27, 2012 8:30:22 AM org.apache.catalina.core.StandardContext loadOnStartup
-SEVERE: Servlet /rest-cxf-1 threw load() exception
-java.lang.ClassCastException: org.apache.cxf.transport.servlet.CXFServlet cannot be cast to javax.servlet.Servlet
-
-I've tried a number of things, such as updating versions of maven dependencies on Spring, CXF, Java servlet. I'm currently configured with Tomcat 6, maybe I should go to 7? If you have any ideas, I'd be happy to hear them. I'm pretty sure it's a dependency version mismatch of some sort, but don't know how to diagnose it.
-
 The work is based mostly on
 
 Started with http://www.insaneprogramming.be/?p=140
 Continued with http://blog.furiousbob.com/2011/12/06/hateoas-restful-services-using-spring-3-1/
 Consulted http://www.ibm.com/developerworks/web/library/wa-restful/ about JSON mapping
 
+Status:
 
+Runs, when I try to retrieve a time, I get this message:
+No message body writer has been found for response class ResponseEntity.
+
+So that's the next task.
