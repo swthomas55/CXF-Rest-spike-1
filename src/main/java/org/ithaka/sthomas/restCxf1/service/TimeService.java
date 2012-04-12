@@ -6,10 +6,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-
 import org.ithaka.sthomas.restCxf1.entity.TimeEntity;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.stereotype.Service;
@@ -17,7 +13,7 @@ import org.springframework.stereotype.Service;
 @Service("timeService")
 //@Path("/time")
 public class TimeService {
-	
+
 	AtomicInteger idSeq = new AtomicInteger(0);
 	Map<Integer, TimeEntity> db = new ConcurrentHashMap<Integer, TimeEntity>();
 
@@ -26,6 +22,12 @@ public class TimeService {
 	{
 		DateFormatter formatter = new DateFormatter("dd/MM/yyyy hh:mm:ss");
 		return formatter.print(Calendar.getInstance().getTime(), Locale.getDefault());
+	}
+
+	public TimeEntity createNew() {
+		TimeEntity order = new TimeEntity();
+		create(order);
+		return order;
 	}
 
 	public void create(TimeEntity order) {
@@ -37,7 +39,11 @@ public class TimeService {
 	public TimeEntity find(String id2) {
 		try {
 			int id = Integer.parseInt(id2);
-			TimeEntity aTime = db.get(Integer.valueOf(id));
+			TimeEntity aTime;
+			if (id == 0)
+				aTime = createNew();
+			else
+				aTime = db.get(Integer.valueOf(id));
 			return aTime;
 		} catch (NumberFormatException e) {
 			return null;
@@ -52,6 +58,6 @@ public class TimeService {
 		db.put(Integer.valueOf(order.getId()), order);
 		return order;
 	}
-	
-	
+
+
 }

@@ -12,13 +12,10 @@ import org.ithaka.sthomas.restCxf1.entity.TimeEntity;
 import org.ithaka.sthomas.restCxf1.rest.Resource;
 import org.ithaka.sthomas.restCxf1.service.TimeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @Path("/time")
@@ -30,31 +27,33 @@ public class TimeController extends BaseController<Resource<TimeEntity>> {
 	private TimeService timeService;
 
 	@POST @Path("/")
-	public ResponseEntity<Resource<TimeEntity>> dynamicTest(@RequestBody TimeEntity order){
+	public Resource<TimeEntity> create(@RequestBody TimeEntity order){
 		timeService.create(order);
 		Resource<TimeEntity> resource = new Resource<TimeEntity>(order);
-		return new ResponseEntity<Resource<TimeEntity>>(resource,HttpStatus.CREATED);
+		return resource;
 	}
 
 	@GET @Path("/{id}")
-	public ResponseEntity<Resource<TimeEntity>> getOrder(@PathVariable("id") String id){
+	public Resource<TimeEntity> getOrder(@PathVariable("id") String id){
 		TimeEntity order = timeService.find(id);
 		Resource<TimeEntity> resource = new Resource<TimeEntity>(order);
-		return new ResponseEntity<Resource<TimeEntity>>(resource,HttpStatus.OK);
+		return resource;
 	}
 
 	@PUT @Path("/{id}")
-	public ResponseEntity<Resource<TimeEntity>> update(@RequestBody TimeEntity order){
+	public Resource<TimeEntity> update(@RequestBody TimeEntity order){
 		order = timeService.update(order);
 		Resource<TimeEntity> resource = new Resource<TimeEntity>(order);
-		return new ResponseEntity<Resource<TimeEntity>>(resource,HttpStatus.NO_CONTENT);
+		return null;
 	}
 
 	@Override
-	public ResponseEntity<Resource<TimeEntity>> describe(HttpServletRequest request) {
-		//TODO describe this resource links
+	public ResponseEntity<Resource<TimeEntity>> describe(
+			HttpServletRequest request) {
+		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 
 }
